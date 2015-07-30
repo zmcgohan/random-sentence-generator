@@ -1,0 +1,5 @@
+:.:.: Markov-Chain & N-Gram Sentence Generation :.:.:
+
+This program, written using Node.js, includes both the server and client for a web app that allows for the creation of randomly generated sentences from a pre-determined body of text.
+
+Included (as an example) is an SQLite3 database containing multiple different Bibles to be used as seeds for the Markov text generation.

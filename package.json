@@ -1,0 +1,11 @@
+{
+  "name": "markov-bible-generation",
+  "version": "0.0.1",
+  "description": "Generates sentences using Markov chaining and n-grams for words in the Bible.",
+  "author": "Zach McGohan <zmcgohan@gmail.com>",
+  "dependencies": {
+    "express": "^4.10.2",
+    "socket.io": "^1.3.6",
+	"sqlite3": "^3.0.9"
+  }
+}
