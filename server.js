@@ -1,6 +1,8 @@
-var MAX_NGRAM_LENGTH = 7,
+var MAX_NGRAM_LENGTH = 5,
 	SENTENCE_BATCH_SIZE = 10,
-	DB_FILE = 'bible.db';
+	DB_FILE = 'bible.db',
+	ATHEISM_COMMENTS_FILE = 'atheism_comments.csv',
+	MAX_COMMENTS_LENGTH = 4150000;
 
 var express = require('express');
 var app = express();
@@ -33,12 +35,12 @@ io.on('connection', function(socket) {
 });
 
 // set up markov text with bible text
-console.log('Processing bible text...');
 var sqlite3 = require('sqlite3').verbose(),
 	db = new sqlite3.Database(DB_FILE);
 var MarkovText = require('./markov_text.js'),
 	text = new MarkovText(MAX_NGRAM_LENGTH);
-var tables = [ 't_kjv', 't_asv' ],
+// get bible data into text
+var tables = [ 't_kjv' ],
 	i;
 for(i = 0; i < tables.length; ++i) {
 	db.all("SELECT t FROM " + tables[i], function(err, rows) {
@@ -49,7 +51,12 @@ for(i = 0; i < tables.length; ++i) {
 		text.addText(fullText);
 	});
 }
-console.log('Complete.');
+// get atheism comments into text
+var fs = require('fs');
+fs.readFile(ATHEISM_COMMENTS_FILE, 'utf-8', function(err, data) {
+	data = data.substring(0, MAX_COMMENTS_LENGTH);
+	text.addText(data);
+});
 
 http.listen(3000, function() {
 	console.log('Listening on port 3000.');

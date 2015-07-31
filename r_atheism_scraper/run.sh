@@ -1,2 +1,0 @@
-clear
-python scraper.py
