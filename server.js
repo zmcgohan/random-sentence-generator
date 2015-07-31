@@ -1,4 +1,4 @@
-var MAX_NGRAM_LENGTH = 5,
+var MAX_NGRAM_LENGTH = 7,
 	SENTENCE_BATCH_SIZE = 10,
 	DB_FILE = 'bible.db';
 

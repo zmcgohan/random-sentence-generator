@@ -3,7 +3,6 @@
  * n = max n-gram length to store */
 function MarkovText(n) {
 	var i;
-	this.totalWords = 0;
 	this.n = n;
 	this.ngrams = []; // each ngram up to n
 	for(i = 0; i < this.n - 1; ++i) this.ngrams.push({});
@@ -11,17 +10,15 @@ function MarkovText(n) {
 
 MarkovText.prototype.addText = function(text) {
 	var words = text.match(/([\w']+|[\.\?\$,!:;])/g),
-		n, i, j, curKey, curWord,
-		totalWords = 0;
+		n, i, j, curKey, curWord;
 	for(n = 2; n <= this.n; ++n) {
 		for(i = 0; i < words.length - n; ++i) {
 			curKey = words.slice(i, i+(n-1)).join().toLowerCase();
 			curWord = words[i+(n-1)];
 			this.addWord(n, curKey, curWord);
-			++totalWords;
 		}
 	}
-	console.log('\tProcessed ' + totalWords + ' words');
+	console.log('\tProcessed text of length ' + text.length);
 };
 
 MarkovText.prototype.addWord = function(n, key, word) {
